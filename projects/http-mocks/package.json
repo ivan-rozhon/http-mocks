@@ -3,6 +3,9 @@
   "version": "0.0.2",
   "peerDependencies": {
     "@angular/common": "^8.2.14",
-    "@angular/core": "^8.2.14"
+    "@angular/core": "^8.2.14",
+    "delay": "^4.3.0",
+    "query-string": "^6.10.1",
+    "xhr-mock": "^2.5.1"
   }
 }
