@@ -1,24 +1,85 @@
-# HttpMocks
+# http-mocks
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.14.
+This mocking library is an easy-to-use and lightweight version of awesome library [data-mocks](https://github.com/ovotech/data-mocks) with a few additional features like a:
 
-## Code scaffolding
+- console logs of the requests and responses
+- access to the body and query parameters of the request within the particular mock (so you can modify a response according to the request)
+- better support for the Angular applications, however, it is still framework agnostic
 
-Run `ng generate component component-name --project http-mocks` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project http-mocks`.
-> Note: Don't forget to add `--project http-mocks` or else it will be added to the default project in your `angular.json` file. 
+Lots of code in this library is very similar to the code of the [data-mocks](https://github.com/ovotech/data-mocks) library. So huge thanks to the authors!
 
-## Build
+## Usage (Angular)
 
-Run `ng build http-mocks` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Install the package in your project as a dependency:
 
-## Publishing
+```
+npm install http-mocks --save-dev
+```
 
-After building your library with `ng build http-mocks`, go to the dist folder `cd dist/http-mocks` and run `npm publish`.
+- Setup the `http-mocks` provider:
 
-## Running unit tests
+```ts
+import { Provider, APP_INITIALIZER } from '@angular/core';
 
-Run `ng test http-mocks` to execute the unit tests via [Karma](https://karma-runner.github.io).
+import {
+  HttpMocksService,
+  MockScenarios,
+  RequestQuery,
+  RequestBody
+} from 'http-mocks';
 
-## Further help
+export const httpMocksProvider: Provider = {
+  provide: APP_INITIALIZER,
+  useFactory: httpMocksProviderFactory,
+  deps: [HttpMocksService],
+  multi: true
+};
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+// Create factory function for the http-mocks provider
+function httpMocksProviderFactory(httpMocksService: HttpMocksService) {
+  return () =>
+    httpMocksService.setHttpMocks(mocks, {
+      loggingEnabled: true,
+      useHash: true
+    });
+}
+
+// Prepare mocks at least for the `default` scenario
+const mocks: MockScenarios = {
+  default: [
+    {
+      url: /getUserInfo/,
+      method: 'POST',
+      responseFn: (requestQuery: RequestQuery, requestBody: RequestBody) => {
+        return {
+          userId: requestBody.userId,
+          firstName: 'John',
+          lastName: 'Doe'
+        };
+      },
+      delay: 1500,
+      responseCode: 200
+    }
+  ]
+};
+```
+
+- Add the `http-mocks` provider to your `app.module.ts`:
+
+```ts
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    ...
+  ],
+  providers: [
+    httpMocksProvider
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
