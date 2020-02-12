@@ -1,11 +1,13 @@
 {
   "name": "http-mocks",
   "version": "0.0.3",
-  "peerDependencies": {
-    "@angular/common": "^8.2.14",
-    "@angular/core": "^8.2.14",
+  "dependencies": {
     "delay": "^4.3.0",
     "query-string": "^6.10.1",
     "xhr-mock": "^2.5.1"
+  },
+  "peerDependencies": {
+    "@angular/common": "^8.2.14",
+    "@angular/core": "^8.2.14"
   }
 }
