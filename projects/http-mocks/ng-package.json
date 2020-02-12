@@ -8,5 +8,6 @@
       "query-string": "queryString",
       "delay": "delay"
     }
-  }
+  },
+  "whitelistedNonPeerDependencies": ["delay", "query-string", "xhr-mock"]
 }
