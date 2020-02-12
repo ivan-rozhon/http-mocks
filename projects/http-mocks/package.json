@@ -1,6 +1,6 @@
 {
   "name": "http-mocks",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "dependencies": {
     "delay": "^4.3.0",
     "query-string": "^6.10.1",
