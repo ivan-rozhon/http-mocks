@@ -1,4 +1,45 @@
-// Copied from https://github.com/sindresorhus/delay
+// SOURCE: https://github.com/sindresorhus/delay
+
+interface AbortSignal {
+  readonly aborted: boolean;
+  addEventListener(
+    type: 'abort',
+    listener: () => void,
+    options?: { once?: boolean }
+  ): void;
+  removeEventListener(type: 'abort', listener: () => void): void;
+}
+
+interface Options {
+  signal?: AbortSignal;
+}
+
+interface ClearablePromise<T> extends Promise<T> {
+  clear(): void;
+}
+
+interface Delay {
+  (milliseconds: number, options?: Options): ClearablePromise<void>;
+
+  <T>(
+    milliseconds: number,
+    options?: Options & {
+      value: T;
+    }
+  ): ClearablePromise<T>;
+
+  reject?: (
+    milliseconds: number,
+    options?: Options & {
+      value?: unknown;
+    }
+  ) => ClearablePromise<never>;
+
+  createWithTimers?: (timers: {
+    clearTimeout: typeof clearTimeout;
+    setTimeout: typeof setTimeout;
+  }) => Delay;
+}
 
 const createAbortError = () => {
   const error = new Error('Delay aborted');
@@ -58,11 +99,11 @@ export const createDelay = ({
   return delayPromise;
 };
 
-export const delay: any = createDelay({ willResolve: true });
+export const delay: Delay = createDelay({ willResolve: true });
 
 delay.reject = createDelay({ willResolve: false });
 delay.createWithTimers = ({ clearTimeout, setTimeout }) => {
-  const innerDelay: any = createDelay({
+  const innerDelay: Delay = createDelay({
     clearTimeout,
     setTimeout,
     willResolve: true
