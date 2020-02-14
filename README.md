@@ -1,10 +1,10 @@
 # http-mocks
 
-This mocking library is an easy-to-use and lightweight version of awesome library [data-mocks](https://github.com/ovotech/data-mocks) with a few additional features:
+This HTTP mocking library (_XHR_ and _Fetch API_) is an easy-to-use and lightweight version of awesome library [data-mocks](https://github.com/ovotech/data-mocks) with a few additional features:
 
 - console logs of the requests and responses
 - access to the body and query parameters of the request within the particular mock (so you can modify a response according to the request)
-- better support for the Angular applications, however, it stays framework agnostic
+- better support for the **Angular** applications, however, it stays framework agnostic
 - works in IE11 (requires `URLSearchParams` polyfill):
 
   ```ts
