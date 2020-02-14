@@ -1,10 +1,15 @@
 # http-mocks
 
-This mocking library is an easy-to-use and lightweight version of awesome library [data-mocks](https://github.com/ovotech/data-mocks) with a few additional features like a:
+This mocking library is an easy-to-use and lightweight version of awesome library [data-mocks](https://github.com/ovotech/data-mocks) with a few additional features:
 
 - console logs of the requests and responses
 - access to the body and query parameters of the request within the particular mock (so you can modify a response according to the request)
-- better support for the Angular applications, however, it is still framework agnostic
+- better support for the Angular applications, however, it stays framework agnostic
+- works in IE11 (requires `URLSearchParams` polyfill):
+
+  ```ts
+  import 'core-js/features/url-search-params';
+  ```
 
 Lots of code in this library is very similar to the code of the [data-mocks](https://github.com/ovotech/data-mocks) library. So huge thanks to the authors!
 
@@ -71,13 +76,15 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
     ...
   ],
   providers: [
-    httpMocksProvider
+    ...(environment.production ? [] : [httpMocksProvider])
   ],
   bootstrap: [AppComponent]
 })
