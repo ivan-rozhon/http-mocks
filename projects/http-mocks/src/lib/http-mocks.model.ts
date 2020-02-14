@@ -16,14 +16,14 @@ export interface Mock {
 
 export interface MockScenarios {
   default: Mock[];
-  [mockScenarioKey: string]: Mock[];
+  [mockScenario: string]: Mock[];
 }
 
 export interface MockOptions {
-  useProxy?: boolean;
+  fallbackToNetwork?: boolean;
   loggingEnabled?: boolean;
-  mockScenarioKey?: keyof MockScenarios;
-  useHash?: boolean;
+  useLocationHash?: boolean;
+  mockScenario?: keyof MockScenarios;
   defaultResponseCode?: number;
   defaultResponseHeaders?: ResponseHeaders;
   defaultDelay?: number;

@@ -1,9 +1,14 @@
 import xhrMock, { MockRequest, MockResponse, proxy } from 'xhr-mock';
 import { MockHeaders } from 'xhr-mock/lib/MockHeaders';
 
-import { parse } from 'query-string';
+import {
+  MockOptions as FetchMockOptions,
+  MockResponse as FetchMockResponse
+} from 'fetch-mock';
 
-import delay from 'delay';
+import fetchMock from 'fetch-mock/es5/client';
+
+import { delay } from './delay';
 
 import {
   MockScenarios,
@@ -17,10 +22,13 @@ import {
 export const injectHttpMocks = (
   mockScenarios: MockScenarios,
   {
-    useProxy = true,
+    fallbackToNetwork = true,
     loggingEnabled = false,
-    useHash = false,
-    mockScenarioKey = extractMockScenarioFromLocation(window.location, useHash),
+    useLocationHash = false,
+    mockScenario = extractMockScenarioFromLocation(
+      window.location,
+      useLocationHash
+    ),
     defaultResponseCode = 200,
     defaultResponseHeaders = {},
     defaultDelay = 0
@@ -28,20 +36,22 @@ export const injectHttpMocks = (
 ): void => {
   xhrMock.setup();
 
-  getScenarioMocks(mockScenarios, mockScenarioKey).forEach((mock: Mock) => {
-    createMock(
-      {
-        responseCode: defaultResponseCode,
-        responseHeaders: defaultResponseHeaders,
-        delay: defaultDelay,
-        ...mock
-      },
-      loggingEnabled
-    );
+  getScenarioMocks(mockScenarios, mockScenario).forEach((mock: Mock) => {
+    const updatedMock: Mock = {
+      responseCode: defaultResponseCode,
+      responseHeaders: defaultResponseHeaders,
+      delay: defaultDelay,
+      ...mock
+    };
+
+    // create mocks for both XHR an Fetch API
+    createXHRMock(updatedMock, loggingEnabled);
+    createFetchMock(updatedMock, loggingEnabled);
   });
 
-  if (useProxy) {
+  if (fallbackToNetwork) {
     xhrMock.use(proxy);
+    fetchMock.config.fallbackToNetwork = true;
   }
 };
 
@@ -50,13 +60,13 @@ export const injectHttpMocks = (
  */
 export const extractMockScenarioFromLocation = (
   location: Location,
-  useHash: boolean
+  useLocationHash: boolean
 ): string => {
-  const locationSearcn = useHash
+  const locationSearch = useLocationHash
     ? location.hash.replace(/^(#\/|#|\/)+/g, '')
     : location.search;
 
-  const { mockScenario = 'default' } = parse(locationSearcn);
+  const { mockScenario = 'default' } = parseQueryParams(locationSearch);
 
   if (Array.isArray(mockScenario)) {
     throw new Error('Only one mock scenario may be used at a time');
@@ -67,18 +77,18 @@ export const extractMockScenarioFromLocation = (
 
 const getScenarioMocks = (
   mockScenarios: MockScenarios,
-  mockScenarioKey: keyof MockScenarios
+  mockScenario: keyof MockScenarios
 ): Mock[] => {
   const defaultMocks = mockScenarios.default;
 
-  if (mockScenarioKey === 'default') {
+  if (mockScenario === 'default') {
     return defaultMocks;
   }
 
-  const selectedMocks = mockScenarios[mockScenarioKey];
+  const selectedMocks = mockScenarios[mockScenario];
 
   if (!selectedMocks) {
-    throw new Error(`No mocks found for mock scenario '${mockScenarioKey}'`);
+    throw new Error(`No mocks found for mock scenario '${mockScenario}'`);
   }
 
   return [
@@ -94,7 +104,7 @@ const getScenarioMocks = (
   ];
 };
 
-const createMock = (mock: Mock, loggingEnabled: boolean): void => {
+const createXHRMock = (mock: Mock, loggingEnabled: boolean): void => {
   xhrMock.use(
     mock.method,
     mock.url,
@@ -129,17 +139,64 @@ const createMock = (mock: Mock, loggingEnabled: boolean): void => {
   );
 };
 
+const createFetchMock = (mock: Mock, loggingEnabled: boolean): void => {
+  fetchMock.mock(
+    mock.url,
+    (url: RegExp, { headers = null, body = null }: FetchMockOptions) => {
+      const requestQuery = parseQueryParams(new URL(`${url}`).search);
+      const requestBody = typeof body === 'string' ? JSON.parse(body) : body;
+
+      const responseBody = mock.responseFn(requestQuery, requestBody);
+      const response: FetchMockResponse = {
+        headers: mock.responseHeaders,
+        status: mock.responseCode,
+        body: responseBody
+      };
+
+      if (loggingEnabled) {
+        logMock(
+          mock,
+          headers,
+          requestQuery,
+          requestBody,
+          responseBody,
+          mock.responseHeaders
+        );
+      }
+
+      return response;
+    },
+    {
+      delay: mock.delay
+    }
+  );
+};
+
+const parseQueryParams = (
+  locationSearch: string = ''
+): Record<string, string> => {
+  const urlSearchParams = new URLSearchParams(locationSearch);
+
+  const queryParams = {};
+
+  urlSearchParams.forEach((value: string, key: string) => {
+    queryParams[key] = value;
+  });
+
+  return queryParams;
+};
+
 const logMock = (
   mock: Mock,
-  requestHeaders: MockHeaders,
+  requestHeaders: MockHeaders | FetchMockOptions['headers'],
   requestQuery: RequestQuery,
   requestBody: RequestBody,
   responseBody: any,
   responseHeaders: ResponseHeaders
 ): void => {
-  console.groupCollapsed(mock.method, mock.url);
+  console.groupCollapsed(`${mock.method} ${mock.url}`);
 
-  console.log('Status Code:', mock.responseCode);
+  console.log('Status:', mock.responseCode);
   console.log('Delay:', mock.delay);
 
   console.group('Request');

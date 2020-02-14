@@ -5,9 +5,9 @@
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {
       "xhr-mock": "xhrMock",
-      "query-string": "queryString",
-      "delay": "delay"
+      "fetch-mock": "fetchMock",
+      "fetch-mock/es5/client": "fetchMock"
     }
   },
-  "whitelistedNonPeerDependencies": ["delay", "query-string", "xhr-mock"]
+  "whitelistedNonPeerDependencies": ["xhr-mock", "fetch-mock"]
 }

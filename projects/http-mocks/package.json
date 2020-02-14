@@ -2,9 +2,8 @@
   "name": "http-mocks",
   "version": "0.0.5",
   "dependencies": {
-    "delay": "^4.3.0",
-    "query-string": "^6.10.1",
-    "xhr-mock": "^2.5.1"
+    "xhr-mock": "^2.5.1",
+    "fetch-mock": "^8.3.2"
   },
   "peerDependencies": {
     "@angular/common": "^8.2.14",
