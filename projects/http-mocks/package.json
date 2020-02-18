@@ -1,6 +1,13 @@
 {
   "name": "http-mocks",
   "version": "0.0.5",
+  "keywords": [
+    "mock",
+    "http",
+    "xhr",
+    "fetch",
+    "rest"
+  ],
   "dependencies": {
     "xhr-mock": "^2.5.1",
     "fetch-mock": "^8.3.2"
