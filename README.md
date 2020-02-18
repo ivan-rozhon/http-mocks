@@ -130,7 +130,7 @@ injectHttpMocks(
 
 ## Mocks & Options
 
-(Within the `setHttpMocks` method of the `HttpMocksService`, or `injectHttpMocks` function itself.)
+(within the `setHttpMocks` method of the `HttpMocksService`, or `injectHttpMocks` function itself)
 
 ```ts
 setHttpMocks(mockScenarios: MockScenarios, mockOptions: MockOptions) {
