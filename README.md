@@ -1,6 +1,6 @@
 # http-mocks
 
-This HTTP mocking library (_XHR_ and _Fetch API_) is an easy-to-use and lightweight version of awesome library [data-mocks](https://github.com/ovotech/data-mocks) with a few additional features:
+This HTTP mocking library (_XHR_ and _Fetch API_) is an alternative version of awesome library [data-mocks](https://github.com/ovotech/data-mocks) with a few additional features:
 
 - console logs of the requests and responses (`loggingEnabled` parameter in the `MockOptions`)
 - access to the body and query parameters of the request within the particular mock (so you can modify a response according to the request)
@@ -14,7 +14,7 @@ This HTTP mocking library (_XHR_ and _Fetch API_) is an easy-to-use and lightwei
   import 'core-js/features/url-search-params';
   ```
 
-Lots of code in this library is very similar to the code of the [data-mocks](https://github.com/ovotech/data-mocks) library. So huge thanks to the authors!
+Lots of code in this library is heavily inspired by the code of the [data-mocks](https://github.com/ovotech/data-mocks) library. So huge thanks to the authors! See Dave's Cooper [great talk](https://www.youtube.com/watch?v=9C1QWwlHi0w) about mocking with `data-mocks`.
 
 ## Instalation
 
