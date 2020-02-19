@@ -185,7 +185,7 @@ interface Mock {
 ```ts
 interface MockOptions {
   /**
-   * Whether pass through the request to the network if no mock exists. (default:,  `true`)
+   * Whether pass through the request to the network if no mock exists. (default: `true`)
    */
   fallbackToNetwork?: boolean;
 
@@ -201,7 +201,7 @@ interface MockOptions {
   useLocationHash?: boolean;
 
   /**
-   * The scenario key to use for mocking. (default `'default'`)
+   * The scenario key to use for mocking. (default: `'default'`)
    */
   mockScenario?: keyof MockScenarios;
 
