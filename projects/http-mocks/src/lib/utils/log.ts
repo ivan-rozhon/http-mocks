@@ -9,6 +9,15 @@ import {
   ResponseHeaders
 } from './../http-mocks.model';
 
+/**
+ * Creates a collapsed group console log of the mock's request and response.
+ * @param mock Entire object of the mock.
+ * @param requestHeaders Headers of the request.
+ * @param requestQuery Query parameters (extracted from URL search string) of the request.
+ * @param requestBody Payload of the request.
+ * @param responseBody Payload of the response (returned from `responseFn`).
+ * @param responseHeaders Headers of the response.
+ */
 export const logMock = (
   mock: Mock,
   requestHeaders: MockHeaders | FetchMockOptions['headers'],
