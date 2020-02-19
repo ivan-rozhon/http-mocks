@@ -22,17 +22,17 @@ export interface Mock {
   responseFn: (requestQuery: RequestQuery, requestBody: RequestBody) => any;
 
   /**
-   * Status code of the HTTP transaction.
+   * Status code of the HTTP transaction. (default: `200`)
    */
   responseCode?: number;
 
   /**
-   * Headers of the response.
+   * Headers of the response. (default: `{}`)
    */
   responseHeaders?: ResponseHeaders;
 
   /**
-   * Time of the response delay (in milliseconds).
+   * Time of the response delay (in milliseconds). (default: `0`)
    */
   delay?: number;
 }
