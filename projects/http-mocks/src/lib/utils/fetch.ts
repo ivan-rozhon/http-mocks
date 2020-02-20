@@ -18,9 +18,15 @@ export const fallbackToNetworkFetch = (fallbackToNetwork: boolean) => {
 export const createFetchMock = (mock: Mock, loggingEnabled: boolean): void => {
   fetchMock.mock(
     mock.url,
-    (url: RegExp, { headers = null, body = {} }: FetchMockOptions) => {
+    (url: RegExp, { headers = {}, body = {} }: FetchMockOptions) => {
+      const createdURL = createURL(url);
+
       // request
-      const requestQuery = parseQueryParams(new URL(`${url}`).search);
+      const requestQuery = parseQueryParams(
+        createdURL !== null
+          ? createdURL.search
+          : `?` + `${url}`.split('?').pop()
+      );
       const requestBody = typeof body === 'string' ? JSON.parse(body) : body;
 
       // response
@@ -48,4 +54,12 @@ export const createFetchMock = (mock: Mock, loggingEnabled: boolean): void => {
       delay: mock.delay
     }
   );
+};
+
+const createURL = (url: RegExp | string): URL | null => {
+  try {
+    return new URL(`${url}`);
+  } catch (_) {
+    return null;
+  }
 };

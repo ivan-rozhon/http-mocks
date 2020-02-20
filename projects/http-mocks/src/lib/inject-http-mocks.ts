@@ -91,7 +91,7 @@ const getScenarioMocks = (
   const selectedMocks = mockScenarios[mockScenario];
 
   if (!selectedMocks) {
-    throw new Error(`No mocks found for mock scenario '${mockScenario}'`);
+    throw new Error(`No mocks found for mock scenario: '${mockScenario}'`);
   }
 
   return [
