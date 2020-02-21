@@ -1,6 +1,10 @@
 # http-mocks
 
-This HTTP mocking library (_XHR_ and _Fetch API_) is an easy-to-use and lightweight version of awesome library [data-mocks](https://github.com/ovotech/data-mocks) with a few additional features:
+[![npm version](https://badge.fury.io/js/http-mocks.svg)](https://badge.fury.io/js/http-mocks)
+![npm](https://img.shields.io/npm/dm/http-mocks.svg)
+[![GitHub license](https://img.shields.io/github/license/ivan-rozhon/http-mocks.svg)](https://github.com/ivan-rozhon/http-mocks)
+
+This HTTP mocking library (_XHR_ and _Fetch API_) is an alternative version of awesome library [data-mocks](https://github.com/ovotech/data-mocks) with a few additional features:
 
 - console logs of the requests and responses (`loggingEnabled` parameter in the `MockOptions`)
 - access to the body and query parameters of the request within the particular mock (so you can modify a response according to the request)
@@ -14,7 +18,7 @@ This HTTP mocking library (_XHR_ and _Fetch API_) is an easy-to-use and lightwei
   import 'core-js/features/url-search-params';
   ```
 
-Lots of code in this library is very similar to the code of the [data-mocks](https://github.com/ovotech/data-mocks) library. So huge thanks to the authors!
+Lots of code in this library is heavily inspired by the code of the [data-mocks](https://github.com/ovotech/data-mocks) library. So huge thanks to the authors! See Dave's Cooper [great talk](https://www.youtube.com/watch?v=9C1QWwlHi0w) about mocking with `data-mocks`.
 
 ## Instalation
 
@@ -160,17 +164,17 @@ interface Mock {
   responseFn: (requestQuery: RequestQuery, requestBody: RequestBody) => any;
 
   /**
-   * Status code of the HTTP transaction.
+   * Status code of the HTTP transaction. (default: `200`)
    */
   responseCode?: number;
 
   /**
-   * Headers of the response.
+   * Headers of the response. (default: `{}`)
    */
   responseHeaders?: ResponseHeaders;
 
   /**
-   * Time of the response delay (in milliseconds).
+   * Time of the response delay (in milliseconds). (default: `0`)
    */
   delay?: number;
 }
@@ -181,7 +185,7 @@ interface Mock {
 ```ts
 interface MockOptions {
   /**
-   * Whether pass through the request to the network if no mock exists. (default:,  `true`)
+   * Whether pass through the request to the network if no mock exists. (default: `true`)
    */
   fallbackToNetwork?: boolean;
 
@@ -197,7 +201,7 @@ interface MockOptions {
   useLocationHash?: boolean;
 
   /**
-   * The scenario key to use for mocking. (default `'default'`)
+   * The scenario key to use for mocking. (default: `'default'`)
    */
   mockScenario?: keyof MockScenarios;
 

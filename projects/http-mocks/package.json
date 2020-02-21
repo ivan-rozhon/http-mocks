@@ -1,13 +1,26 @@
 {
   "name": "http-mocks",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "keywords": [
     "mock",
     "http",
     "xhr",
     "fetch",
-    "rest"
+    "rest",
+    "angular"
   ],
+  "author": {
+    "name": "Ivan Rozhoň",
+    "email": "ivan.rozhon@gmail.com",
+    "url": "https://rozhon.net/"
+  },
+  "license": "MIT",
+  "description": "HTTP mocking library primarily targeted for the Angular applications",
+  "homepage": "https://github.com/ivan-rozhon/http-mocks#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://www.npmjs.com/package/http-mocks"
+  },
   "dependencies": {
     "xhr-mock": "^2.5.1",
     "fetch-mock": "^8.3.2"

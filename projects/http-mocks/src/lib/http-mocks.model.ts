@@ -22,17 +22,17 @@ export interface Mock {
   responseFn: (requestQuery: RequestQuery, requestBody: RequestBody) => any;
 
   /**
-   * Status code of the HTTP transaction.
+   * Status code of the HTTP transaction. (default: `200`)
    */
   responseCode?: number;
 
   /**
-   * Headers of the response.
+   * Headers of the response. (default: `{}`)
    */
   responseHeaders?: ResponseHeaders;
 
   /**
-   * Time of the response delay (in milliseconds).
+   * Time of the response delay (in milliseconds). (default: `0`)
    */
   delay?: number;
 }
@@ -44,7 +44,7 @@ export interface MockScenarios {
 
 export interface MockOptions {
   /**
-   * Whether pass through the request to the network if no mock exists. (default:,  `true`)
+   * Whether pass through the request to the network if no mock exists. (default: `true`)
    */
   fallbackToNetwork?: boolean;
 
@@ -60,7 +60,7 @@ export interface MockOptions {
   useLocationHash?: boolean;
 
   /**
-   * The scenario key to use for mocking. (default `'default'`)
+   * The scenario key to use for mocking. (default: `'default'`)
    */
   mockScenario?: keyof MockScenarios;
 
