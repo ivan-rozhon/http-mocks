@@ -54,7 +54,7 @@ function httpMocksProviderFactory(httpMocksService: HttpMocksService) {
   return () =>
     httpMocksService.setHttpMocks(mocks, {
       loggingEnabled: true,
-      useHash: true
+      useLocationHash: true
     });
 }
 
@@ -127,7 +127,7 @@ injectHttpMocks(
   },
   {
     loggingEnabled: true,
-    useHash: true
+    useLocationHash: true
   }
 );
 ```
