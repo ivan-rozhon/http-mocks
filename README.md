@@ -3,6 +3,7 @@
 [![npm version](https://badge.fury.io/js/http-mocks.svg)](https://badge.fury.io/js/http-mocks)
 ![npm](https://img.shields.io/npm/dm/http-mocks.svg)
 [![GitHub license](https://img.shields.io/github/license/ivan-rozhon/http-mocks.svg)](https://github.com/ivan-rozhon/http-mocks)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 This HTTP mocking library (_XHR_ and _Fetch API_) is an alternative version of awesome library [data-mocks](https://github.com/ovotech/data-mocks) with a few additional features:
 
