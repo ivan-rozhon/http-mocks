@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "release": "cd projects/http-mocks/ && standard-version --infile ../../CHANGELOG.md"
   },
   "dependencies": {
     "@angular/animations": "~8.2.14",
@@ -48,6 +49,7 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "ng-packagr": "^5.4.0",
     "protractor": "~5.4.0",
+    "standard-version": "7.1.0",
     "ts-node": "~7.0.0",
     "tsickle": "^0.37.0",
     "tslint": "~5.15.0",
