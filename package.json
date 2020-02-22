@@ -10,7 +10,10 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "commit": "git-cz",
-    "release": "cd projects/http-mocks/ && standard-version --infile ../../CHANGELOG.md"
+    "release": "cd projects/http-mocks/ && standard-version --infile ../../CHANGELOG.md",
+    "postrelease": "git push --follow-tags",
+    "prepublish": "npm run build",
+    "publish": "cd dist/http-mocks && npm publish"
   },
   "dependencies": {
     "@angular/animations": "~8.2.14",
