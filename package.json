@@ -11,6 +11,8 @@
     "e2e": "ng e2e",
     "commit": "git-cz",
     "release": "cd projects/http-mocks/ && standard-version --infile ../../CHANGELOG.md",
+    "release:minor": "npm run release -- --release-as minor",
+    "release:major": "npm run release -- --release-as major",
     "postrelease": "git push --follow-tags",
     "prepublish": "npm run build",
     "publish": "cd dist/http-mocks && npm publish"
