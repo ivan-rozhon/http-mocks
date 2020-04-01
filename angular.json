@@ -14,6 +14,11 @@
           "options": {
             "tsConfig": "projects/http-mocks/tsconfig.lib.json",
             "project": "projects/http-mocks/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/http-mocks/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -31,12 +36,11 @@
               "projects/http-mocks/tsconfig.lib.json",
               "projects/http-mocks/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "http-mocks"
 }

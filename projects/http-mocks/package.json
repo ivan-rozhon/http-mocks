@@ -1,6 +1,6 @@
 {
   "name": "http-mocks",
-  "version": "0.2.3",
+  "version": "1.1.0",
   "keywords": [
     "mock",
     "http",
@@ -26,7 +26,8 @@
     "fetch-mock": "^8.3.2"
   },
   "peerDependencies": {
-    "@angular/common": "^8.2.14",
-    "@angular/core": "^8.2.14"
+    "@angular/common": "^9.0.7",
+    "@angular/core": "^9.0.7",
+    "tslib": "^1.10.0"
   }
 }

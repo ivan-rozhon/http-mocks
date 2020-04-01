@@ -24,7 +24,8 @@ export const injectHttpMocks = (
     ),
     defaultResponseCode = 200,
     defaultResponseHeaders = {},
-    defaultDelay = 0
+    defaultDelay = 0,
+    proxyFn
   }: MockOptions = {}
 ): void => {
   // this needs to be placed before creating the XHR mocks
@@ -41,8 +42,8 @@ export const injectHttpMocks = (
     };
 
     // create mocks for both XHR an Fetch API
-    createXHRMock(updatedMock, loggingEnabled);
-    createFetchMock(updatedMock, loggingEnabled);
+    createXHRMock(updatedMock, loggingEnabled, proxyFn);
+    createFetchMock(updatedMock, loggingEnabled, proxyFn);
   });
 
   // turn `fallbackToNetwork` on/off
