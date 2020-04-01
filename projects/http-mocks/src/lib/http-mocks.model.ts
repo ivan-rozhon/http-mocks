@@ -5,6 +5,8 @@ export type RequestBody = Record<string, any> | null;
 
 export type ResponseHeaders = Record<string, any>;
 
+export type MockParams = Omit<Mock, 'responseFn' | 'responseHeaders' | 'delay'>;
+
 export interface Mock {
   /**
    * A regular expression that should match with the URL of the HTTP request.
@@ -78,4 +80,10 @@ export interface MockOptions {
    * Common mock delay for all mocks that can be overridden by the mock delay of the particular mock. (default: `0`)
    */
   defaultDelay?: number;
+
+  /**
+   * Wrapper function that applies to all mock responses.
+   * Useful when you change the overall data response structure without an impact on the data.
+   */
+  proxyFn?: (responseBody: any, mockParams: MockParams) => any;
 }

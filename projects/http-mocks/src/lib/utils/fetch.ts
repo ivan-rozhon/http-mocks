@@ -9,13 +9,19 @@ import { parseQueryParams } from './query';
 
 import { logMock } from './log';
 
-import { Mock } from './../http-mocks.model';
+import { handleProxyFn } from './proxy';
+
+import { Mock, MockOptions } from './../http-mocks.model';
 
 export const fallbackToNetworkFetch = (fallbackToNetwork: boolean) => {
   fetchMock.config.fallbackToNetwork = fallbackToNetwork;
 };
 
-export const createFetchMock = (mock: Mock, loggingEnabled: boolean): void => {
+export const createFetchMock = (
+  mock: Mock,
+  loggingEnabled: boolean,
+  proxyFn: MockOptions['proxyFn']
+): void => {
   fetchMock.mock(
     mock.url,
     (url: RegExp, { headers = {}, body = {} }: FetchMockOptions) => {
@@ -30,7 +36,8 @@ export const createFetchMock = (mock: Mock, loggingEnabled: boolean): void => {
       const requestBody = typeof body === 'string' ? JSON.parse(body) : body;
 
       // response
-      const responseBody = mock.responseFn(requestQuery, requestBody);
+      const responseData = mock.responseFn(requestQuery, requestBody);
+      const responseBody: any = handleProxyFn(responseData, mock, proxyFn);
       const response: FetchMockResponse = {
         headers: mock.responseHeaders,
         status: mock.responseCode,

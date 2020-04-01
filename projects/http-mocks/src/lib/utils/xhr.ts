@@ -4,7 +4,9 @@ import { delay } from './delay';
 
 import { logMock } from './log';
 
-import { Mock } from './../http-mocks.model';
+import { handleProxyFn } from './proxy';
+
+import { Mock, MockOptions } from './../http-mocks.model';
 
 export const setupXHRMock = (): void => {
   xhrMock.setup();
@@ -16,7 +18,11 @@ export const fallbackToNetworkXHR = (fallbackToNetwork: boolean) => {
   }
 };
 
-export const createXHRMock = (mock: Mock, loggingEnabled: boolean): void => {
+export const createXHRMock = (
+  mock: Mock,
+  loggingEnabled: boolean,
+  proxyFn?: MockOptions['proxyFn']
+): void => {
   xhrMock.use(
     mock.method,
     mock.url,
@@ -27,7 +33,8 @@ export const createXHRMock = (mock: Mock, loggingEnabled: boolean): void => {
         mockRequest.body() != null ? JSON.parse(mockRequest.body()) : {};
 
       // response
-      const responseBody: any = mock.responseFn(requestQuery, requestBody);
+      const responseData = mock.responseFn(requestQuery, requestBody);
+      const responseBody: any = handleProxyFn(responseData, mock, proxyFn);
       const response = mockResponse
         .status(mock.responseCode)
         .body(responseBody)

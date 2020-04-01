@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "commit": "git-cz",
-    "release": "cd projects/http-mocks/ && standard-version --infile ../../CHANGELOG.md",
+    "release": "cd projects/http-mocks/ && standard-version --no-verify --infile ../../CHANGELOG.md",
     "release:minor": "npm run release -- --release-as minor",
     "release:major": "npm run release -- --release-as major",
     "postrelease": "git push --follow-tags",
@@ -26,11 +26,11 @@
     "@angular/platform-browser": "~9.0.7",
     "@angular/platform-browser-dynamic": "~9.0.7",
     "@angular/router": "~9.0.7",
+    "fetch-mock": "^8.3.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
-    "fetch-mock": "^8.3.2",
-    "xhr-mock": "^2.5.1"
+    "xhr-mock": "^2.5.1",
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.7",
