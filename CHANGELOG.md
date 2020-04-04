@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/ivan-rozhon/http-mocks/compare/v1.1.0...v1.1.1) (2020-04-04)
+
+
+### Bug Fixes
+
+* **fetch api:** turn on 'overwriteRoutes' option (Fetch API) ([54be930](https://github.com/ivan-rozhon/http-mocks/commit/54be930da9c0abaa6f1b6d1f84e69c674d64c55a))
+
 ## [1.1.0](https://github.com/ivan-rozhon/http-mocks/compare/v1.0.0...v1.1.0) (2020-04-01)
 
 
