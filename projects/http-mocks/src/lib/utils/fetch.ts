@@ -17,6 +17,10 @@ export const fallbackToNetworkFetch = (fallbackToNetwork: boolean) => {
   fetchMock.config.fallbackToNetwork = fallbackToNetwork;
 };
 
+export const overwriteRoutesFetch = (overwriteRoutes: boolean) => {
+  fetchMock.config.overwriteRoutes = overwriteRoutes;
+};
+
 export const createFetchMock = (
   mock: Mock,
   loggingEnabled: boolean,

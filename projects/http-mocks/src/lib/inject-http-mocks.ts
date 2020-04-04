@@ -1,5 +1,6 @@
 import {
   fallbackToNetworkFetch,
+  overwriteRoutesFetch,
   createFetchMock,
   parseQueryParams,
   setupXHRMock,
@@ -49,6 +50,9 @@ export const injectHttpMocks = (
   // turn `fallbackToNetwork` on/off
   fallbackToNetworkXHR(fallbackToNetwork);
   fallbackToNetworkFetch(fallbackToNetwork);
+
+  // turn `overwriteRoutesFetch` on/off (Fetch API only)
+  overwriteRoutesFetch(true);
 };
 
 /**
