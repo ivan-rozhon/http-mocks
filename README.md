@@ -21,6 +21,17 @@ This HTTP mocking library (_XHR_ and _Fetch API_) is an alternative version of a
 
 Lots of code in this library is heavily inspired by the code of the [data-mocks](https://github.com/ovotech/data-mocks) library. So huge thanks to the authors! See Dave's Cooper [great talk](https://www.youtube.com/watch?v=9C1QWwlHi0w) about mocking with `data-mocks`.
 
+### Angular versions compatibility
+
+| Angular | http-mocks |
+| ------- | ---------- |
+| 9.x     | 1.x        |
+| 8.x     | 0.x        |
+
+## Examples
+
+Read the [blog post](https://medium.com/@ivan.rozhon/supercharge-http-mocks-in-your-angular-apps-9739c7395546) or see it [in action](https://stackblitz.com/edit/angular-http-mocks).
+
 ## Instalation
 
 - Install the package in your project as a dependency:
