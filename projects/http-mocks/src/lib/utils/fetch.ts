@@ -11,7 +11,7 @@ import { logMock } from './log';
 
 import { handleProxyFn } from './proxy';
 
-import { Mock, MockOptions } from './../http-mocks.model';
+import { Mock, MockOptions, MockResponse } from './../http-mocks.model';
 
 export const fallbackToNetworkFetch = (fallbackToNetwork: boolean) => {
   fetchMock.config.fallbackToNetwork = fallbackToNetwork;
@@ -24,7 +24,7 @@ export const overwriteRoutesFetch = (overwriteRoutes: boolean) => {
 export const createFetchMock = (
   mock: Mock,
   loggingEnabled: boolean,
-  proxyFn: MockOptions['proxyFn']
+  responseProxyFn: MockOptions['responseProxyFn']
 ): void => {
   fetchMock.mock(
     mock.url,
@@ -38,24 +38,35 @@ export const createFetchMock = (
           : `?` + `${url}`.split('?').pop()
       );
       const requestBody = typeof body === 'string' ? JSON.parse(body) : body;
+      const requestHeaders = headers;
 
       // response
-      const responseData = mock.responseFn(requestQuery, requestBody);
-      const responseBody: any = handleProxyFn(responseData, mock, proxyFn);
+      const responseBody = mock.responseFn(requestQuery, requestBody);
+      const responseData: MockResponse = handleProxyFn(
+        responseBody,
+        mock,
+        {
+          requestQuery,
+          requestBody,
+          requestHeaders
+        },
+        responseProxyFn
+      );
+
       const response: FetchMockResponse = {
-        headers: mock.responseHeaders,
-        status: mock.responseCode,
-        body: responseBody
+        headers: responseData.responseHeaders,
+        status: responseData.responseCode,
+        body: responseData.responseBody
       };
 
       if (loggingEnabled) {
         logMock(
           mock,
-          headers,
+          requestHeaders,
           requestQuery,
           requestBody,
-          responseBody,
-          mock.responseHeaders
+          responseData.responseBody,
+          responseData.responseHeaders
         );
       }
 

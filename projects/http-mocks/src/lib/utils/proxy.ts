@@ -1,15 +1,30 @@
-import { Mock, MockOptions } from './../http-mocks.model';
+import {
+  Mock,
+  MockOptions,
+  MockResponse,
+  MockRequest
+} from './../http-mocks.model';
 
 export const handleProxyFn = (
-  responseData: any,
+  responseBody: any,
   mock: Mock,
-  proxyFn?: MockOptions['proxyFn']
-): any => {
+  mockRequest: MockRequest,
+  proxyFn?: MockOptions['responseProxyFn']
+): MockResponse => {
   return proxyFn && typeof proxyFn === 'function'
-    ? proxyFn(responseData, {
-        url: mock.url,
-        method: mock.method,
-        responseCode: mock.responseCode
-      })
-    : responseData;
+    ? proxyFn(
+        responseBody,
+        {
+          url: mock.url,
+          method: mock.method,
+          responseCode: mock.responseCode,
+          responseHeaders: mock.responseHeaders
+        },
+        mockRequest
+      )
+    : {
+        responseBody,
+        responseCode: mock.responseCode,
+        responseHeaders: mock.responseHeaders
+      };
 };

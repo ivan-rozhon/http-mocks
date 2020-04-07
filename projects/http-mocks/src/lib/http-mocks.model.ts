@@ -5,7 +5,22 @@ export type RequestBody = Record<string, any> | null;
 
 export type ResponseHeaders = Record<string, any>;
 
-export type MockParams = Omit<Mock, 'responseFn' | 'responseHeaders' | 'delay'>;
+export interface MockResponse {
+  responseBody: any;
+  responseCode: number;
+  responseHeaders: ResponseHeaders;
+}
+
+export interface MockRequest {
+  requestQuery: ResponseHeaders;
+  requestBody: any;
+  requestHeaders: ResponseHeaders;
+}
+
+export type MockParams = Pick<
+  Mock,
+  'url' | 'method' | 'responseCode' | 'responseHeaders'
+>;
 
 export interface Mock {
   /**
@@ -21,7 +36,10 @@ export interface Mock {
   /**
    * A function that contains a logic that returns response data accordingly to the request (query params and payload).
    */
-  responseFn: (requestQuery: RequestQuery, requestBody: RequestBody) => any;
+  responseFn: (
+    requestQuery: RequestQuery,
+    requestBody: RequestBody
+  ) => MockResponse['responseBody'];
 
   /**
    * Status code of the HTTP transaction. (default: `200`)
@@ -85,5 +103,9 @@ export interface MockOptions {
    * Wrapper function that applies to all mock responses.
    * Useful when you change the overall data response structure without an impact on the data.
    */
-  proxyFn?: (responseBody: any, mockParams: MockParams) => any;
+  responseProxyFn?: (
+    responseBody: any, // The result of the `responseFn: (requestQuery: RequestQuery, requestBody: RequestBody)`
+    mockParams: MockParams, //
+    mockRequest: MockRequest
+  ) => MockResponse;
 }
