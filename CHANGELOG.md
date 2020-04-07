@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/ivan-rozhon/http-mocks/compare/v1.1.2...v1.2.0) (2020-04-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* proxyFn renamed to responseProxyFn in the MockOptions
+
+### improvement
+
+* extend and improve responseProxyFn MockOption ([4f7a87c](https://github.com/ivan-rozhon/http-mocks/commit/4f7a87c674d97440f5a14294537e08fbc8f8dd3a))
+
 ### [1.1.2](https://github.com/ivan-rozhon/http-mocks/compare/v1.1.1...v1.1.2) (2020-04-05)
 
 ### [1.1.1](https://github.com/ivan-rozhon/http-mocks/compare/v1.1.0...v1.1.1) (2020-04-04)
