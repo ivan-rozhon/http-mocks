@@ -236,6 +236,10 @@ interface MockOptions {
    * Wrapper function that applies to all mock responses.
    * Useful when you change the overall data response structure without an impact on the data.
    */
-  proxyFn?: (responseBody: any, mockParams: MockParams) => any;
+  responseProxyFn?: (
+    responseBody: any, // The result of the `responseFn: (requestQuery: RequestQuery, requestBody: RequestBody)`
+    mockParams: MockParams, //
+    mockRequest: MockRequest
+  ) => MockResponse;
 }
 ```
