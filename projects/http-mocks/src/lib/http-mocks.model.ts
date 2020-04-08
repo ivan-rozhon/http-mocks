@@ -104,8 +104,14 @@ export interface MockOptions {
    * Useful when you change the overall data response structure without an impact on the data.
    */
   responseProxyFn?: (
-    responseBody: any, // The result of the `responseFn: (requestQuery: RequestQuery, requestBody: RequestBody)`
-    mockParams: MockParams, //
+    responseBody: any, // The result of the `responseFn: (requestQuery: RequestQuery, requestBody: RequestBody) => any`
+    mockParams: MockParams,
     mockRequest: MockRequest
   ) => MockResponse;
+
+  /**
+   * Disables specific mocks.
+   * With this option, you can easily disable particular mocks when you're about to connect to the real API.
+   */
+  ignoredMocks?: RegExp[];
 }
