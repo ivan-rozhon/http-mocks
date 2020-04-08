@@ -26,26 +26,35 @@ export const injectHttpMocks = (
     defaultResponseCode = 200,
     defaultResponseHeaders = {},
     defaultDelay = 0,
-    responseProxyFn
+    responseProxyFn,
+    ignoredMocks = []
   }: MockOptions = {}
 ): void => {
   // this needs to be placed before creating the XHR mocks
   setupXHRMock();
 
-  // pick the right scenario mocks and create mock for every mock definition
-  getScenarioMocks(mockScenarios, mockScenario).forEach((mock: Mock) => {
-    // use default values in the first place
-    const updatedMock: Mock = {
-      responseCode: defaultResponseCode,
-      responseHeaders: defaultResponseHeaders,
-      delay: defaultDelay,
-      ...mock
-    };
+  // convert ignored mocks RegExps to the strings
+  const ignoredMocksStrings: string[] =
+    Array.isArray(ignoredMocks) && ignoredMocks.length
+      ? ignoredMocks.map((value: RegExp) => value.toString())
+      : [];
 
-    // create mocks for both XHR an Fetch API
-    createXHRMock(updatedMock, loggingEnabled, responseProxyFn);
-    createFetchMock(updatedMock, loggingEnabled, responseProxyFn);
-  });
+  // pick the right scenario mocks and create mock for every mock definition
+  getScenarioMocks(mockScenarios, mockScenario)
+    .filter((mock: Mock) => !ignoredMocksStrings.includes(mock.url.toString()))
+    .forEach((mock: Mock) => {
+      // use default values in the first place
+      const updatedMock: Mock = {
+        responseCode: defaultResponseCode,
+        responseHeaders: defaultResponseHeaders,
+        delay: defaultDelay,
+        ...mock
+      };
+
+      // create mocks for both XHR an Fetch API
+      createXHRMock(updatedMock, loggingEnabled, responseProxyFn);
+      createFetchMock(updatedMock, loggingEnabled, responseProxyFn);
+    });
 
   // turn `fallbackToNetwork` on/off
   fallbackToNetworkXHR(fallbackToNetwork);
