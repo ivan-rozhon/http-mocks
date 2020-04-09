@@ -62,11 +62,12 @@ export const createFetchMock = (
       if (loggingEnabled) {
         logMock(
           mock,
-          requestHeaders,
-          requestQuery,
-          requestBody,
-          responseData.responseBody,
-          responseData.responseHeaders
+          {
+            requestQuery,
+            requestBody,
+            requestHeaders
+          },
+          responseData
         );
       }
 
