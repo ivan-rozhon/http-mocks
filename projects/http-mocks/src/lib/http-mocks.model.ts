@@ -5,16 +5,16 @@ export type RequestBody = Record<string, any> | null;
 
 export type ResponseHeaders = Record<string, any>;
 
-export interface MockResponse {
-  responseBody: any;
-  responseCode: number;
-  responseHeaders: ResponseHeaders;
-}
-
 export interface MockRequest {
   requestQuery: ResponseHeaders;
   requestBody: any;
   requestHeaders: ResponseHeaders;
+}
+
+export interface MockResponse {
+  responseBody: any;
+  responseCode: number;
+  responseHeaders: ResponseHeaders;
 }
 
 export type MockParams = Pick<

@@ -28,14 +28,16 @@ export const createFetchMock = (
 ): void => {
   fetchMock.mock(
     mock.url,
-    (url: RegExp, { headers = {}, body = {} }: FetchMockOptions) => {
+    (url: RegExp, fetchMockOptions: FetchMockOptions) => {
+      const body = fetchMockOptions?.body || {};
+      const headers = fetchMockOptions?.headers || {};
       const createdURL = createURL(url);
 
       // request
       const requestQuery = parseQueryParams(
         createdURL !== null
           ? createdURL.search
-          : `?` + `${url}`.split('?').pop()
+          : removeAllBeforeChar(url.toString(), '?')
       );
       const requestBody = typeof body === 'string' ? JSON.parse(body) : body;
       const requestHeaders = headers;
@@ -62,11 +64,12 @@ export const createFetchMock = (
       if (loggingEnabled) {
         logMock(
           mock,
-          requestHeaders,
-          requestQuery,
-          requestBody,
-          responseData.responseBody,
-          responseData.responseHeaders
+          {
+            requestQuery,
+            requestBody,
+            requestHeaders
+          },
+          responseData
         );
       }
 
@@ -78,10 +81,25 @@ export const createFetchMock = (
   );
 };
 
+/**
+ * Tries to create a new instace of URL()
+ */
 const createURL = (url: RegExp | string): URL | null => {
   try {
     return new URL(`${url}`);
   } catch (_) {
     return null;
   }
+};
+
+/**
+ * Removes all chars before specific char (char includes).
+ * If char doesn't exist, returns an empty string.
+ */
+const removeAllBeforeChar = (value: string, char: string): string => {
+  if (!value.includes(char)) {
+    return '';
+  }
+
+  return `${value}`.split(char).pop();
 };

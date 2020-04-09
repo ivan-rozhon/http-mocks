@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/ivan-rozhon/http-mocks/compare/v1.3.0...v1.3.1) (2020-04-09)
+
+
+### Bug Fixes
+
+* **fetch:** correct parsing of query params ([764f0d1](https://github.com/ivan-rozhon/http-mocks/commit/764f0d19628fe85c3710208516bc9aeb4267fd21))
+* **fetch:** non-existent fetch headers ([922f09c](https://github.com/ivan-rozhon/http-mocks/commit/922f09c41c028c329919bbd93f91cf6cf788be3f))
+* **log:** log appropriate data in case of using responseProxyFn() ([b5c138d](https://github.com/ivan-rozhon/http-mocks/commit/b5c138d119572844b4d1a2999fa43632984ec394))
+
 ## [1.3.0](https://github.com/ivan-rozhon/http-mocks/compare/v1.2.0...v1.3.0) (2020-04-08)
 
 
