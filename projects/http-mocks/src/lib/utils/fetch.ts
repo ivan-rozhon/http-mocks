@@ -28,7 +28,9 @@ export const createFetchMock = (
 ): void => {
   fetchMock.mock(
     mock.url,
-    (url: RegExp, { headers = {}, body = {} }: FetchMockOptions) => {
+    (url: RegExp, fetchMockOptions: FetchMockOptions) => {
+      const body = fetchMockOptions?.body || {};
+      const headers = fetchMockOptions?.headers || {};
       const createdURL = createURL(url);
 
       // request
