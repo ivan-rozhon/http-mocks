@@ -5,7 +5,7 @@
 [![GitHub license](https://img.shields.io/github/license/ivan-rozhon/http-mocks.svg)](https://github.com/ivan-rozhon/http-mocks)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-This HTTP mocking library (_XHR_ and _Fetch API_) is an alternative version of awesome library [data-mocks](https://github.com/ovotech/data-mocks) with a few additional features:
+This HTTP mocking library (_XHR_ and _Fetch API_) is an **Angular** friendly, alternative version of the [data-mocks](https://github.com/ovotech/data-mocks) library with a few additional features:
 
 - console logs of the requests and responses (`loggingEnabled` parameter in the `MockOptions`)
 - access to the body and query parameters of the request within the particular mock (so you can modify a response according to the request)
@@ -19,7 +19,7 @@ This HTTP mocking library (_XHR_ and _Fetch API_) is an alternative version of a
   import 'core-js/features/url-search-params';
   ```
 
-Lots of code in this library is heavily inspired by the code of the [data-mocks](https://github.com/ovotech/data-mocks) library. So huge thanks to the authors! See Dave's Cooper [great talk](https://www.youtube.com/watch?v=9C1QWwlHi0w) about mocking with `data-mocks`.
+The code in this library is more or less inspired by the code and principles of the [data-mocks](https://github.com/ovotech/data-mocks) library. So huge thanks to the authors! See Dave's Cooper [great talk](https://www.youtube.com/watch?v=9C1QWwlHi0w) about mocking.
 
 ### Angular versions compatibility
 
