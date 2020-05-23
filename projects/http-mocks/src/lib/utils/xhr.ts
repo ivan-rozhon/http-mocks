@@ -16,7 +16,7 @@ export const setupXHRMock = (): void => {
   xhrMock.setup();
 };
 
-export const fallbackToNetworkXHR = (fallbackToNetwork: boolean) => {
+export const fallbackToNetworkXHR = (fallbackToNetwork: boolean): void => {
   if (fallbackToNetwork) {
     xhrMock.use(proxy);
   }
@@ -30,7 +30,10 @@ export const createXHRMock = (
   xhrMock.use(
     mock.method,
     mock.url,
-    async (mockRequest: XhrMockRequest, mockResponse: XhrMockResponse) => {
+    async (
+      mockRequest: XhrMockRequest,
+      mockResponse: XhrMockResponse
+    ): Promise<XhrMockResponse> => {
       // request
       const requestQuery = mockRequest.url().query || {};
       const requestBody =

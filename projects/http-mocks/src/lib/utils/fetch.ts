@@ -13,11 +13,11 @@ import { handleProxyFn } from './proxy';
 
 import { Mock, MockOptions, MockResponse } from './../http-mocks.model';
 
-export const fallbackToNetworkFetch = (fallbackToNetwork: boolean) => {
+export const fallbackToNetworkFetch = (fallbackToNetwork: boolean): void => {
   fetchMock.config.fallbackToNetwork = fallbackToNetwork;
 };
 
-export const overwriteRoutesFetch = (overwriteRoutes: boolean) => {
+export const overwriteRoutesFetch = (overwriteRoutes: boolean): void => {
   fetchMock.config.overwriteRoutes = overwriteRoutes;
 };
 

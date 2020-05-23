@@ -73,10 +73,7 @@ export const extractMockScenarioFromLocation = (
   location: Location,
   useLocationHash: boolean
 ): string => {
-  const locationSearch = useLocationHash
-    ? // remove leading symbols like: `#`, `#/`, `/`
-      location.hash.replace(/^(#\/|#|\/)+/g, '')
-    : location.search;
+  const locationSearch = extractLocationSearch(location, useLocationHash);
 
   const { mockScenario = 'default' } = parseQueryParams(locationSearch);
 
@@ -85,6 +82,20 @@ export const extractMockScenarioFromLocation = (
   }
 
   return mockScenario;
+};
+
+/**
+ * Extracts `location.search` from the provided `Location` object.
+ * @param location `Location` object.
+ * @param useLocationHash Whether `location.search` contains `#`.
+ */
+export const extractLocationSearch = (
+  location: Location,
+  useLocationHash: boolean
+): string => {
+  return useLocationHash
+    ? location.hash.replace(/^(#\/|#|\/)+/g, '') // remove leading symbols like: `#`, `#/`, `/`
+    : location.search;
 };
 
 /**
